@@ -14,6 +14,7 @@
     <title>Liste des clients existants</title>
     <link type="text/css" rel="stylesheet" href="<c:url value="/inc/style.css"/>" />
 </head>
+
 <body>
 <c:import url="/inc/menu.jsp" />
 <div id="corps">

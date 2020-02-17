@@ -15,37 +15,37 @@ import com.sdzee.tp.beans.Client;
 public class SuppressionClient extends HttpServlet {
 
     public static final String PARAM_NOM_CLIENT = "nomClient";
-    public static final String SESSION_CLIENTS  = "clients";
+    public static final String SESSION_CLIENTS = "clients";
 
-    public static final String VUE              = "/listeClients";
+    public static final String VUE = "/listeClients";
 
-    public void doGet( HttpServletRequest request, HttpServletResponse response ) throws ServletException, IOException {
+    public void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         /* Récupération du paramètre */
-        String nomClient = getValeurParametre( request, PARAM_NOM_CLIENT );
+        String nomClient = getValeurParametre(request, PARAM_NOM_CLIENT);
 
         /* Récupération de la Map des clients enregistrés en session */
         HttpSession session = request.getSession();
-        Map<String, Client> clients = (HashMap<String, Client>) session.getAttribute( SESSION_CLIENTS );
+        Map<String, Client> clients = (HashMap<String, Client>) session.getAttribute(SESSION_CLIENTS);
 
-        /* Si le nom du client et la Map des clients ne sont pas vides */
-        if ( nomClient != null && clients != null ) {
+        // Si le nom du client et la Map des clients ne sont pas vides
+        if (nomClient != null && clients != null) {
             /* Alors suppression du client de la Map */
-            clients.remove( nomClient );
+            clients.remove(nomClient);
             /* Et remplacement de l'ancienne Map en session par la nouvelle */
-            session.setAttribute( SESSION_CLIENTS, clients );
+            session.setAttribute(SESSION_CLIENTS, clients);
         }
 
         /* Redirection vers la fiche récapitulative */
-        response.sendRedirect( request.getContextPath() + VUE );
+        response.sendRedirect(request.getContextPath() + VUE);
     }
 
     /*
      * Méthode utilitaire qui retourne null si un paramètre est vide, et son
      * contenu sinon.
      */
-    private static String getValeurParametre( HttpServletRequest request, String nomChamp ) {
-        String valeur = request.getParameter( nomChamp );
-        if ( valeur == null || valeur.trim().length() == 0 ) {
+    private static String getValeurParametre(HttpServletRequest request, String nomChamp) {
+        String valeur = request.getParameter(nomChamp);
+        if (valeur == null || valeur.trim().length() == 0) {
             return null;
         } else {
             return valeur;
